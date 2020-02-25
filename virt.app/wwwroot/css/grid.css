@@ -1,0 +1,50 @@
+html, body, .grid-container { height: 100%; margin: 0; }
+
+.grid-container * { 
+ border: 1px solid red;
+ position: relative;
+}
+
+.grid-container *:after { 
+ content:attr(class);
+ position: absolute;
+ top: 0;
+ left: 0;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 0.6fr 1.4fr 1fr 1fr;
+  grid-template-rows: 0.2fr 1.8fr 1fr;
+  grid-template-areas: "Top-Bar Top-Bar Top-Bar Top-Bar" "SidePanel WorkingArea WorkingArea WorkingArea" "SidePanel WorkingArea WorkingArea WorkingArea";
+}
+
+.SidePanel {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.1fr 0.1fr 2.8fr;
+  grid-template-areas: "VmTitle" "VmAdd" "VmList";
+  grid-area: SidePanel;
+}
+
+.VmTitle { grid-area: VmTitle; }
+
+.VmList { grid-area: VmList; }
+
+.VmAdd { grid-area: VmAdd; }
+
+.Top-Bar { grid-area: Top-Bar; }
+
+.WorkingArea {
+  display: grid;
+  grid-template-columns: 0.2fr 1.8fr;
+  grid-template-rows: 0.1fr 2fr;
+  grid-template-areas: "VmName VmName" "VmMenus VmActions";
+  grid-area: WorkingArea;
+}
+
+.VmName { grid-area: VmName; }
+
+.VmMenus { grid-area: VmMenus; }
+
+.VmActions { grid-area: VmActions; }

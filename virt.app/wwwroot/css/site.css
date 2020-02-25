@@ -1,0 +1,251 @@
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+a, .btn-link {
+    color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+app {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-row {
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.main {
+    flex: 1;
+}
+
+.main .top-row {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+}
+
+.main .top-row > a {
+    margin-left: 1.5rem;
+}
+
+.sidebar {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+}
+
+.sidebar .top-row {
+    background-color: rgba(0,0,0,0.4);
+}
+
+.sidebar .navbar-brand {
+    font-size: 1.1rem;
+}
+
+.sidebar .oi {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.nav-item {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+}
+
+.nav-item:first-of-type {
+    padding-top: 1rem;
+}
+
+.nav-item:last-of-type {
+    padding-bottom: 1rem;
+}
+
+.nav-item a {
+    color: #d7d7d7;
+    border-radius: 4px;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    line-height: 3rem;
+}
+
+.nav-item a.active {
+    background-color: rgba(255,255,255,0.25);
+    color: white;
+}
+
+.nav-item a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.content {
+    padding-top: 1.1rem;
+}
+
+.navbar-toggler {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid red;
+}
+
+.validation-message {
+    color: red;
+}
+
+.flex-fill {
+    flex:1 1 auto;
+}
+
+
+@media (max-width: 767.98px) {
+    .main .top-row {
+        display: none;
+    }
+    .flex-fill {
+        flex:1 1 auto;
+    }
+}
+
+@media (min-width: 768px) {
+    app {
+        flex-direction: row;
+    }
+    .flex-fill {
+        flex:1 1 auto;
+    }
+
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .fullheight{
+        height: 100vh;
+        left: 0;
+        right: 0;
+    }
+
+    .padleft{
+        border: 0px;
+        padding:0; 
+        margin:0;
+        border-collapse: collapse;
+    }
+
+    .leftsection{
+        background: #CCC;
+        width: 300px;
+    }
+
+    .btn_add{
+        background-color: white;
+        border: 1px solid white;
+        outline: none;
+        height: 36px;
+        font-size: 13px;
+        cursor: pointer;
+    }
+
+    .btn_add:hover{
+        background-color: #edebe9;
+        border: 1px solid #edebe9;
+        outline: none;
+    }
+
+    .btn_add:focus{
+        border: 1px solid #323130;
+        outline: none;
+    }
+
+    .vm_list_element_selected{
+        background-color: #e1dfdd; 
+        cursor: pointer; 
+        height: 32px;
+        display: flex;
+        align-items: center;
+    }
+
+    .vm_list_element_not_selected{
+        background-color: white;
+        cursor: pointer; 
+        height: 32px;
+        display: flex;
+        align-items: center;
+    }
+
+    .filterInput{
+        width: 100%;
+        height: 23px;
+        background-color: white;
+        border: 1px solid rgba(127,127,127,.85);
+        font-size: 13px;
+    }
+    
+    .filterInput:focus{
+        border: 1px solid #0078d4;
+        outline: none; 
+    }
+
+    .container{
+        display: flex;
+    }
+
+    .vm_container_horizontal{
+        overflow-y: hidden;
+    }
+
+    .rightsection{
+        width: calc(100% - 300px);
+    }
+
+    .hidden{
+        display: none;
+    }
+
+    .fullwidth{
+        width: 100vw;
+    }
+
+    .main .top-row {
+        position: sticky;
+        top: 0;
+    }
+
+    .main > div {
+        /* padding-left: 2rem !important;
+        padding-right: 1.5rem !important; */
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .navbar-toggler {
+        display: none;
+    }
+
+    .sidebar .collapse {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+}
