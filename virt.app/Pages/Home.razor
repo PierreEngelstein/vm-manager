@@ -6,85 +6,32 @@
 @if(loaded){
         @if(selectedMachine == null)
         {
-                <table class="table table-hover">
-                        <thead>
-                                <th scope="col">Name</th>
-                                <th scope="col">Type</th>
-                                <th scope="col">Status</th>
-                        </thead>
-                        <tbody>
-                                @for (int i = 0; i < vms.Count; i++)
-                                {
-                                        VirtualMachine machine = vms[i];
-                                        int index = i;
-                                        <tr>
-                                                <td ><button type="button" class="btn btn-link" @onclick="() => TrClickedAtIndex(index)">@machine.Name</button></td>
-                                                <td>Virtual Machine</td>
-                                                <td>@machine.State.ToString("G")</td>
-                                        </tr>
-                                }
-                        </tbody>
-                </table>
+                <VirtualMachinesList vms="@vms" selectedMachine="@selectedMachine" actionOnClickVMItem="ActionOnListClick" />
         }
         else
         {
                 <button @onclick="() => GoToList()">Go Back</button>
                 <div class="container-fluid main_container d-flex fullheight">
                         <div name="GridContainer" class="row flex-fill">
-                        <section class="leftsection border-top border-right " style="background-color: white;">
-                                <header class="border-bottom">
-                                        <div style="padding-left: 25px;">
-                                                <b style="font-size: 18px;">Virtual Machines</b>
-                                        </div>
-                                </header>
-                                <div class="vm_container_vertical">
-                                        <div class="border-bottom" style="padding-left: 15px; display: flex;">
-                                                <button type="button" class="btn_add d-flex justify-content-center align-content-between">
-                                                        <i class="material-icons mr-1" style="font-size: 20px; color: #0078d4">add</i>
-                                                        <span style="padding-right: 2px;">Add</span>
-                                                </button>
-                                        </div>
-                                        <div style="padding-left: 25px; padding-right: 25px; padding-top: 10px;" class="vm_container_vertical">
-                                                <div>
-                                                       <input @oninput="OnUpdated" type="text" id="filterByName" name="filterByName" placeholder="filter by name..." class="filterInput" style="width: 100%;"> 
+                                <section class="leftsection border-top border-right " style="background-color: white;">
+                                        <header class="border-bottom">
+                                                <div style="padding-left: 25px;">
+                                                        <b style="font-size: 18px;">Virtual Machines</b>
                                                 </div>
-                                                <div style="padding-top: 10px;">
-                                                        <div style="align-items: center;">
-                                                                <input type="checkbox" name="checkAllVM" id="checkAllVM">
-                                                                <b style="padding-left: 10px; font-size: 13px;">Name</b>
-                                                        </div>
-                                                        @for (int i = 0; i < vms.Count; i++)
-                                                        {
-                                                                
-                                                                VirtualMachine machine = vms[i];
-                                                                int index = i;
-                                                                string style = "vm_list_element_not_selected";
-                                                                @if(machine == selectedMachine)
-                                                                {
-                                                                        style = "vm_list_element_selected";
-                                                                }
-                                                                
-                                                                <div class="border-bottom @style">
-                                                                        
-                                                                        <input type="checkbox" name="checkAllVM" id="checkAllVM">
-                                                                        <button style="font-size: 13px;" type="button" class="btn btn-link" @onclick="() => TrClickedAtIndex(index)">
-                                                                                <i class="material-icons mr-1" style="font-size: 20px;">computer</i>
-                                                                                <span>@machine.Name</span>
-                                                                        </button>                                                                        
-                                                                </div>
-                                                        }
-                                                </div>
+                                        </header>
+                                        <div class="vm_container_vertical">
+                                                <VirtualMachinesList vms="@vms" selectedMachine="@selectedMachine" actionOnClickVMItem="ActionOnListClick" />
                                         </div>
-                                </div>
-                        </section>
-                        <section class="rightsection border-top" style="background-color: white;">
-                                <header class="border-bottom">
-                                        @selectedMachine.Name
-                                </header>
-                                <div>
-                                        CONTENT
-                                </div>
-                        </section>
+                                </section>
+                                <section class="rightsection border-top" style="background-color: white;">
+                                        <header class="border-bottom">
+                                                @selectedMachine.Name
+                                        </header>
+                                        <div name="GridContainer" class="row flex-fill">
+                                                <VirtualMachinePanel sidePanelSizePx=200 sidePanelMarginPx=24 Menus="@menus">
+                                                </VirtualMachinePanel>
+                                        </div>
+                                </section>
                         </div>
                 </div>
         }
@@ -98,15 +45,11 @@ else
         private List<VirtualMachine> vms;
         private VirtualMachineManager manager = new VirtualMachineManager();
         private VirtualMachine selectedMachine = null;
-        private string m_filter_text;
+        private List<BaseVirtualMachineMenu> menus = new List<BaseVirtualMachineMenu>(){
+                new OverviewMenu(){Name = "Overview"}
+        };
 
         public bool loaded = false;
-
-        public void TrClickedAtIndex(int index)
-        {
-                selectedMachine = vms[index];
-                InvokeAsync(StateHasChanged);
-        }
 
         public void GoToList()
         {
@@ -122,18 +65,8 @@ else
                 await InvokeAsync(StateHasChanged);
         }
 
-        public async Task OnUpdated(ChangeEventArgs e)
+        public void ActionOnListClick(VirtualMachine machine)
         {
-                string selected = (string)e.Value;
-                if(!string.IsNullOrEmpty(selected))
-                {
-                        vms = (await manager.GetAllMachines()).ToList().Where(vm => vm.Name.Contains(selected)).ToList();
-                        await InvokeAsync(StateHasChanged);
-                }else
-                {
-                        vms = (await manager.GetAllMachines()).ToList();
-                        await InvokeAsync(StateHasChanged);
-                }
-
+                selectedMachine = machine;
         }
 }

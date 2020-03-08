@@ -52,5 +52,32 @@ namespace virt.tests
             
             Console.WriteLine(os.ToXml());
         }
+
+        public class cA
+        {
+            public string param1 { get; set; }
+        }
+
+        public class coucou
+        {
+            public cA paramcA { get; set; }
+        }
+
+        [Fact]
+        public void TestCopyOrRef()
+        {
+            cA a = new cA();
+            a.param1 = "coucou";
+
+            cA b = a;
+            b.param1 = "nope";
+
+            Console.WriteLine("{0}, {1}", a.param1, b.param1);
+
+            coucou c = new coucou();
+            c.paramcA = b;
+            c.paramcA.param1 = "NO";
+            Console.WriteLine("{0}, {1}", a.param1, b.param1);
+        }
     }
 }

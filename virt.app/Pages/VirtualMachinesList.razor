@@ -1,0 +1,41 @@
+@using VirtManager
+@inherits BaseVirtualMachinesList
+
+<div class="border-bottom" style="padding-left: 15px; display: flex;">
+        <button type="button" class="btn_add d-flex justify-content-center align-content-between">
+                <i class="material-icons mr-1" style="font-size: 20px; color: #0078d4">add</i>
+                <span style="padding-right: 2px;">Add</span>
+        </button>
+</div>
+<div style="padding-left: 25px; padding-right: 25px; padding-top: 10px;" class="vm_container_vertical">
+        <div>
+                <input @oninput="OnFiltered" type="text" id="filterByName" name="filterByName" placeholder="filter by name..." class="filterInput" style="width: 100%;"> 
+        </div>
+        <div style="padding-top: 10px;">
+                <div style="align-items: center;">
+                        <input type="checkbox" name="checkAllVM" id="checkAllVM">
+                        <b style="padding-left: 10px; font-size: 13px;">Name</b>
+                </div>
+                @for (int i = 0; i < vms.Count; i++)
+                {
+                        VirtualMachine machine = vms[i];
+                        int index = i;
+                        string style = "vm_list_element_not_selected";
+                        @if(machine == selectedMachine)
+                        {
+                                style = "vm_list_element_selected";
+                        }
+                        @if(vms_displayed[i])
+                        {
+                                <div class="border-bottom @style">
+                                        
+                                        <input type="checkbox" name="checkAllVM" id="checkAllVM">
+                                        <button style="font-size: 13px;" type="button" class="btn btn-link" @onclick="() => onClickVMItem(index)">
+                                                <i class="material-icons mr-1" style="font-size: 20px;">computer</i>
+                                                <span>@machine.Name</span>
+                                        </button>                                                                        
+                                </div>
+                        }
+                }
+        </div>
+</div>
